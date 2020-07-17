@@ -1,0 +1,6 @@
+/.idea/
+/settings.php
+/var/
+!/var/.gitkeep
+/vendor/
+composer.lock

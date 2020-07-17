@@ -1,0 +1,32 @@
+<?php
+
+declare(strict_types=1);
+
+define('APP_ROOT', __DIR__);
+
+// settings for development
+
+return [
+    'settings' => [
+        'slim' => [
+            'displayErrorDetails' => true,
+            'logErrors' => true,
+            'logErrorDetails' => true,
+        ],
+
+        'doctrine' => [
+            'dev_mode' => true,
+            'cache_dir' => APP_ROOT . '/var/doctrine',
+            'metadata_dirs' => [APP_ROOT . '/src/Domain'],
+            'connection' => [
+                'driver' => 'pdo_mysql',
+                'host' => '127.0.0.1',
+                'port' => 3306,
+                'dbname' => 'mydbname',
+                'user' => 'root',
+                'password' => '',
+                'charset' => 'utf8mb4'
+            ]
+        ]
+    ]
+];
