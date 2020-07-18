@@ -73,6 +73,9 @@ class ListProductById
                 ->withStatus(200)
                 ->withHeader('Content-Type', 'application/json')
                 ->withHeader('Content-Length', $body->getSize())
+                ->withHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
+                ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
                 ->withBody($body);
         } else {
             $auxObj = new \stdClass();
