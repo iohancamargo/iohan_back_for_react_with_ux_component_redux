@@ -14,7 +14,7 @@ use UMA\DIC\ServiceProvider;
  * A ServiceProvider for registering services related to
  * Doctrine in a DI container.
  *
- * If the project had custom repositories (e.g. UserRepository)
+ * If the project had custom repositories (e.g.)
  * they could be registered here.
  */
 class Doctrine implements ServiceProvider
