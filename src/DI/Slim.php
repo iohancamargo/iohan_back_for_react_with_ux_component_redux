@@ -10,10 +10,9 @@ use Slim\App;
 use Slim\Factory\AppFactory;
 use UMA\DIC\Container;
 use UMA\DIC\ServiceProvider;
-use UMA\DoctrineDemo\Action\CreateUser;
-use UMA\DoctrineDemo\Action\ListUsers;
 use UMA\DoctrineDemo\Action\ListProducts;
 use UMA\DoctrineDemo\Action\ListProductById;
+use UMA\DoctrineDemo\Action\CreateDataProducts;
 
 /**
  * A ServiceProvider for registering services related
@@ -27,12 +26,6 @@ class Slim implements ServiceProvider
      */
     public function provide(Container $c): void
     {
-        $c->set(ListUsers::class, static function(Container $c): ListUsers {
-            return new ListUsers(
-                $c->get(EntityManager::class)
-            );
-        });
-
         $c->set(ListProducts::class, static function(Container $c): ListProducts {
             return new ListProducts(
                 $c->get(EntityManager::class)
@@ -45,10 +38,9 @@ class Slim implements ServiceProvider
             );
         });
 
-        $c->set(CreateUser::class, static function(Container $c): CreateUser {
-            return new CreateUser(
-                $c->get(EntityManager::class),
-                Faker\Factory::create()
+        $c->set(CreateDataProducts::class, static function(Container $c): CreateDataProducts {
+            return new CreateDataProducts(
+                $c->get(EntityManager::class)
             );
         });
 
@@ -63,12 +55,10 @@ class Slim implements ServiceProvider
                 $settings['slim']['logErrors'],
                 $settings['slim']['logErrorDetails']
             );
-
-            $app->get('/users', ListUsers::class);
-            $app->post('/users', CreateUser::class);
             
             $app->get('/products', ListProducts::class);
             $app->get('/prices/{id}', ListProductById::class);
+            $app->put('/create_data', CreateDataProducts::class);
 
             return $app;
         });

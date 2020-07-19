@@ -44,7 +44,7 @@ class ProductCycle implements \JsonSerializable
      */
     private $priceOrder;
 
-    public function __construct(integer $cycle, integer $months, number $priceRenew, number $priceOrder)
+    public function __construct($cycle, int $months, float $priceRenew, float $priceOrder)
     {
         $this->cycle = $cycle;
         $this->months = $months;

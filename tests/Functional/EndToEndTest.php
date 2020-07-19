@@ -46,19 +46,9 @@ class EndToEndTest extends TestCase
         self::$tool->createSchema(self::$schema);
     }
 
-    public function testCreatingAUserWithThePostEndpoint(): void
+    public function testGettingAListOfProductsWithTheGetEndpoint(): ResponseInterface
     {
-        $request = new ServerRequest('POST', '/users');
-        $response = self::$app->handle($request);
-
-        self::assertSame(201, $response->getStatusCode());
-        self::assertArrayHasKey('Content-Type', $response->getHeaders());
-        self::assertStringStartsWith('application/json', $response->getHeaderLine('Content-Type'));
-    }
-
-    public function testGettingAListOfUsersWithTheGetEndpoint(): ResponseInterface
-    {
-        $request = new ServerRequest('GET', '/users');
+        $request = new ServerRequest('GET', '/products');
         $response = self::$app->handle($request);
 
         self::assertSame(200, $response->getStatusCode());
@@ -70,19 +60,13 @@ class EndToEndTest extends TestCase
 
     public function testSeveralApiCalls(): void
     {
-        $users = json_decode((string) $this->testGettingAListOfUsersWithTheGetEndpoint()->getBody());
-        self::assertCount(0, $users);
+        $products = json_decode((string) $this->testGettingAListOfProductsWithTheGetEndpoint()->getBody());
+        self::assertCount(0, $products);
 
-        $this->testCreatingAUserWithThePostEndpoint();
-        $this->testCreatingAUserWithThePostEndpoint();
-        $this->testCreatingAUserWithThePostEndpoint();
+        $products = json_decode((string) $this->testGettingAListOfProductsWithTheGetEndpoint()->getBody());
+        self::assertCount(3, $products);
 
-        $users = json_decode((string) $this->testGettingAListOfUsersWithTheGetEndpoint()->getBody());
-        self::assertCount(3, $users);
-
-        $this->testCreatingAUserWithThePostEndpoint();
-
-        $users = json_decode((string) $this->testGettingAListOfUsersWithTheGetEndpoint()->getBody());
-        self::assertCount(4, $users);
+        $products = json_decode((string) $this->testGettingAListOfProductsWithTheGetEndpoint()->getBody());
+        self::assertCount(4, $products);
     }
 }

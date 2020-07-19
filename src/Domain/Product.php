@@ -52,10 +52,7 @@ class Product implements \JsonSerializable
     }
 
     public function getProductCycle(): string
-    {
-        // var_dump($this->productCycle);
-        $teste = $this->productCycle->toArray();
-        die($teste);
+    {                 
         return $this->productCycle;
     }
 
